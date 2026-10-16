@@ -7,7 +7,7 @@
     Oxio UI  |  Black & White theme
     Based on WindUI (MIT License) by Footagesus
 ]]
-
+local Nyx_Logo  = "rbxassetid://76271722752167"
 local OXIO_LOGO = "rbxassetid://118755181202304"
 local OXIO_NAME = "Oxio"
 
