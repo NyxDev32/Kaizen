@@ -9,6 +9,7 @@
 ]]
 local Nyx_Logo  = "rbxassetid://76271722752167"
 local OXIO_LOGO = "rbxassetid://118755181202304"
+local Nyx_NAME  = "Nyx"
 local OXIO_NAME = "Oxio"
 
 type ConfigType__DARKLUA_TYPE_a={
