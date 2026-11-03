@@ -3514,15 +3514,15 @@ function ScreenButton.new(window, def)
         },
         Parent = Layer.Hud,
     }))
-    Util.Corner(UDim.new(1, 0), button)
+    Util.Corner(UDim.new(0, 10), button)  -- kotak ujung tumpul, bukan pill
     Util.Padding(button, 0, 14, 0, def.Icon and 10 or 14)
     Util.List(button, 6, Enum.FillDirection.Horizontal, Enum.HorizontalAlignment.Center, Enum.VerticalAlignment.Center)
-    self.Stroke = Util.Stroke(button, function(t) return self.Active and t.Success or t.Stroke end, function(t)
-        return self.Active and 0.1 or t.StrokeTransparency
-    end, 1.5)
+    self.Stroke = Util.Stroke(button, function(t) return self.Active and t.Success or Color3.new(1, 1, 1) end, function(t)
+        return self.Active and 0.1 or 0
+    end, 2)
     if def.Icon then
         self.IconLabel = Util.Icon(def.Icon, {
-            Size = UDim2.fromOffset(15, 15),
+            Size = UDim2.fromOffset(22, 22),  -- diperbesar dari 15x15
             LayoutOrder = 1,
             Theme = { ImageColor3 = function(t) return self.Active and t.Success or t.TextDim end },
             Parent = button,
