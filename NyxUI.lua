@@ -2424,7 +2424,6 @@ function Overlays:SetWatermark(on)
         Util.Padding(frame, 0, 12, 0, 10)
         Util.List(frame, 8, Enum.FillDirection.Horizontal, nil, Enum.VerticalAlignment.Center)
         local logo = Util.Icon(window.Def.Icon or "sparkles", { Size = UDim2.fromOffset(14, 14), LayoutOrder = 1, Theme = { ImageColor3 = function() return Color3.new(1, 1, 1) end }, Parent = frame })
-        Util.New("UIGradient", { Rotation = 45, Theme = { Color = function(t) return ColorSequence.new(t.Accent, t.AccentAlt) end }, Parent = logo })
         local text = Util.Label({ TextSize = 11, Weight = Enum.FontWeight.Medium, RichText = true, AutomaticSize = Enum.AutomaticSize.X, Size = UDim2.fromScale(0, 1), LayoutOrder = 2, Parent = frame })
         local scale = Util.New("UIScale", { Scale = window.Interface.WatermarkStyle.Scale / 100, Parent = frame })
         restore(window, "WatermarkPos", frame, watermarkHome)
@@ -2502,7 +2501,6 @@ function Overlays:SetMobileButton(on)
             Theme = { ImageColor3 = function() return Color3.new(1, 1, 1) end },
             Parent = button,
         })
-        Util.New("UIGradient", { Rotation = 45, Theme = { Color = function(t) return ColorSequence.new(t.Accent, t.AccentAlt) end }, Parent = logo })
         restore(window, "MobilePos", button, mobileHome)
         window.Maid:Give(Drag.Attach(button, button, {
             OnEnd = function(moved)
@@ -4540,10 +4538,9 @@ function Window:_build()
             Rotation = "GradientRotation",
             Color = function(t)
                 return ColorSequence.new({
-                    ColorSequenceKeypoint.new(0, Color3.fromRGB(78, 80, 86)),
-                    ColorSequenceKeypoint.new(0.22, Color3.fromRGB(20, 20, 22)),
-                    ColorSequenceKeypoint.new(0.6, Color3.fromRGB(0, 0, 0)),
-                    ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 0, 0)),
+                    ColorSequenceKeypoint.new(0, t.BackgroundAlt),
+                    ColorSequenceKeypoint.new(0.55, t.Background),
+                    ColorSequenceKeypoint.new(1, t.Background),
                 })
             end,
         },
@@ -4559,11 +4556,6 @@ function Window:_build()
         Position = UDim2.fromOffset(16, 14),
         Theme = { ImageColor3 = function() return Color3.new(1, 1, 1) end },
         Parent = topbar,
-    })
-    Util.New("UIGradient", {
-        Rotation = 45,
-        Theme = { Color = function(t) return ColorSequence.new(t.Accent, t.AccentAlt) end },
-        Parent = logo,
     })
 
     local heading = Util.New("Frame", { BackgroundTransparency = 1, Position = UDim2.fromOffset(48, 8), Size = UDim2.new(0, 0, 0, 18), AutomaticSize = Enum.AutomaticSize.X, Parent = topbar })
@@ -6645,7 +6637,7 @@ Theme.PaletteKeys = {
 
 Theme.StyleDefaults = {
     WindowTransparency   = 0.06,
-    SurfaceTransparency  = 0.05,
+    SurfaceTransparency  = 0.3,
     ElevatedTransparency = 0.15,
     StrokeTransparency   = 0.45,
     Radius               = 12,
@@ -6653,7 +6645,7 @@ Theme.StyleDefaults = {
     Font                 = "Ubuntu",             -- Montserrat sets letter pairs like "as" too tight at small sizes
     AnimSpeed            = 1,
     Gradient             = true,
-    GradientRotation     = 90,
+    GradientRotation     = 45,
     AnimatedTitle        = true,
 }
 
@@ -10272,10 +10264,10 @@ return {
     -- black + chrome silver, matches the NyxHub artwork
     Nyx = palette({
         Accent = rgb(204, 208, 214), AccentAlt = rgb(246, 248, 251),
-        Background = rgb(0, 0, 0), BackgroundAlt = rgb(20, 20, 22),
-        Surface = rgb(30, 30, 34), SurfaceHover = rgb(42, 42, 47),
-        Elevated = rgb(40, 40, 45), ElevatedHover = rgb(54, 54, 60),
-        Stroke = rgb(150, 153, 160), Divider = rgb(58, 58, 64),
+        Background = rgb(2, 2, 3), BackgroundAlt = rgb(30, 31, 35),
+        Surface = rgb(9, 9, 10), SurfaceHover = rgb(17, 17, 19),
+        Elevated = rgb(20, 20, 22), ElevatedHover = rgb(31, 31, 34),
+        Stroke = rgb(118, 121, 128), Divider = rgb(46, 47, 51),
         Text = rgb(242, 244, 247), TextDim = rgb(162, 165, 172), TextMuted = rgb(102, 104, 110),
         OnAccent = rgb(8, 8, 10),
     }),
