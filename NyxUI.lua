@@ -2424,6 +2424,7 @@ function Overlays:SetWatermark(on)
         Util.Padding(frame, 0, 12, 0, 10)
         Util.List(frame, 8, Enum.FillDirection.Horizontal, nil, Enum.VerticalAlignment.Center)
         local logo = Util.Icon(window.Def.Icon or "sparkles", { Size = UDim2.fromOffset(14, 14), LayoutOrder = 1, Theme = { ImageColor3 = function() return Color3.new(1, 1, 1) end }, Parent = frame })
+        Util.New("UIGradient", { Rotation = 45, Theme = { Color = function(t) return ColorSequence.new(t.Accent, t.AccentAlt) end }, Parent = logo })
         local text = Util.Label({ TextSize = 11, Weight = Enum.FontWeight.Medium, RichText = true, AutomaticSize = Enum.AutomaticSize.X, Size = UDim2.fromScale(0, 1), LayoutOrder = 2, Parent = frame })
         local scale = Util.New("UIScale", { Scale = window.Interface.WatermarkStyle.Scale / 100, Parent = frame })
         restore(window, "WatermarkPos", frame, watermarkHome)
@@ -2492,7 +2493,7 @@ function Overlays:SetMobileButton(on)
             Theme = { BackgroundColor3 = "Surface", BackgroundTransparency = function(t) return math.min(t.SurfaceTransparency, 0.1) end },
             Parent = Layer.Hud,
         }))
-        Util.Corner(UDim.new(0, 8), button)  -- kotak ujung tumpul, bukan bulat
+        Util.Corner(UDim.new(1, 0), button)
         Util.Stroke(button, "Accent", function() return 0.3 end, 1.5)
         local logo = Util.Icon(window.Def.Icon or "sparkles", {
             Size = UDim2.fromOffset(20, 20),
@@ -2501,6 +2502,7 @@ function Overlays:SetMobileButton(on)
             Theme = { ImageColor3 = function() return Color3.new(1, 1, 1) end },
             Parent = button,
         })
+        Util.New("UIGradient", { Rotation = 45, Theme = { Color = function(t) return ColorSequence.new(t.Accent, t.AccentAlt) end }, Parent = logo })
         restore(window, "MobilePos", button, mobileHome)
         window.Maid:Give(Drag.Attach(button, button, {
             OnEnd = function(moved)
@@ -3512,15 +3514,15 @@ function ScreenButton.new(window, def)
         },
         Parent = Layer.Hud,
     }))
-    Util.Corner(UDim.new(0, 10), button)  -- kotak ujung tumpul, bukan pill
+    Util.Corner(UDim.new(1, 0), button)
     Util.Padding(button, 0, 14, 0, def.Icon and 10 or 14)
     Util.List(button, 6, Enum.FillDirection.Horizontal, Enum.HorizontalAlignment.Center, Enum.VerticalAlignment.Center)
-    self.Stroke = Util.Stroke(button, function(t) return self.Active and t.Success or Color3.new(1, 1, 1) end, function(t)
-        return self.Active and 0.1 or 0
-    end, 2)
+    self.Stroke = Util.Stroke(button, function(t) return self.Active and t.Success or t.Stroke end, function(t)
+        return self.Active and 0.1 or t.StrokeTransparency
+    end, 1.5)
     if def.Icon then
         self.IconLabel = Util.Icon(def.Icon, {
-            Size = UDim2.fromOffset(22, 22),  -- diperbesar dari 15x15
+            Size = UDim2.fromOffset(15, 15),
             LayoutOrder = 1,
             Theme = { ImageColor3 = function(t) return self.Active and t.Success or t.TextDim end },
             Parent = button,
@@ -4556,6 +4558,11 @@ function Window:_build()
         Position = UDim2.fromOffset(16, 14),
         Theme = { ImageColor3 = function() return Color3.new(1, 1, 1) end },
         Parent = topbar,
+    })
+    Util.New("UIGradient", {
+        Rotation = 45,
+        Theme = { Color = function(t) return ColorSequence.new(t.Accent, t.AccentAlt) end },
+        Parent = logo,
     })
 
     local heading = Util.New("Frame", { BackgroundTransparency = 1, Position = UDim2.fromOffset(48, 8), Size = UDim2.new(0, 0, 0, 18), AutomaticSize = Enum.AutomaticSize.X, Parent = topbar })
